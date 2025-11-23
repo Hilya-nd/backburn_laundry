@@ -1,4 +1,4 @@
- /*
+/*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
@@ -12,7 +12,7 @@ import javax.swing.ImageIcon;
 import java.awt.Image;
 
 public class login extends javax.swing.JFrame {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(login.class.getName());
 
     /**
@@ -20,21 +20,8 @@ public class login extends javax.swing.JFrame {
      */
     public login() {
         initComponents();
-         // Resize setelah komponen tampil (biar width & height nya tidak 0)
-    this.addComponentListener(new java.awt.event.ComponentAdapter() {
-        @Override
-        public void componentShown(java.awt.event.ComponentEvent e) {
-            ImageIcon icon = new ImageIcon(getClass().getResource("/foldergambar/laundry.png"));
-
-            Image img = icon.getImage().getScaledInstance(
-                gambarIcon.getWidth(),
-                gambarIcon.getHeight(),
-                Image.SCALE_SMOOTH
-            );
-
-            gambarIcon.setIcon(new ImageIcon(img));
-        }
-    });
+        // Resize setelah komponen tampil (biar width & height nya tidak 0)
+      
     }
 
     /**
@@ -57,8 +44,6 @@ public class login extends javax.swing.JFrame {
         password = new javax.swing.JLabel();
         bLogin = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -161,12 +146,6 @@ public class login extends javax.swing.JFrame {
         jLabel2.setText("Halo");
         jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 260, -1, -1));
 
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project/pbo/images/washing-machine_(1)_(2)-transformed.png"))); // NOI18N
-        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 510, 220, 230));
-
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project/pbo/images/waving_person-removebg-preview (1) (2).png"))); // NOI18N
-        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 330, -1, 396));
-
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(47, 65, 86));
         jLabel3.setText("Selamat Datang!");
@@ -224,8 +203,6 @@ public class login extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel login;
