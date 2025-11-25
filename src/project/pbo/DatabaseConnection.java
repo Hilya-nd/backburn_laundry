@@ -19,7 +19,7 @@ public class DatabaseConnection {
 
                 // KONEKSI KE DATABASE
                 conn = DriverManager.getConnection(
-                        "jdbc:mysql://localhost:3306/backburn_laundry",
+                        "jdbc:mysql://localhost:3306/backburnlaundry",
                         "root",
                         ""
                 );

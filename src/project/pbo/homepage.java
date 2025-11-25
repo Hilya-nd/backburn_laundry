@@ -149,12 +149,9 @@ public class homepage extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel10)
                     .addComponent(jLabel9)
-                    .addComponent(jLabel4))
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 1, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -249,7 +246,7 @@ public class homepage extends javax.swing.JFrame {
                     .addComponent(jLabel24)
                     .addComponent(jLabel23)
                     .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel12)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -333,7 +330,6 @@ public class homepage extends javax.swing.JFrame {
         bDashboard.setBackground(new java.awt.Color(245, 239, 235));
         bDashboard.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         bDashboard.setForeground(new java.awt.Color(75, 111, 127));
-        bDashboard.setIcon(new javax.swing.ImageIcon("C:\\Users\\prata\\OneDrive\\Dokumen\\project pbo\\66aec10a-fb00-4733-bd12-d63cb6b73616.jpg")); // NOI18N
         bDashboard.setText("Dashboard");
         bDashboard.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         bDashboard.setBorderPainted(false);
@@ -342,7 +338,6 @@ public class homepage extends javax.swing.JFrame {
         bProfile.setBackground(new java.awt.Color(245, 239, 235));
         bProfile.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         bProfile.setForeground(new java.awt.Color(75, 111, 127));
-        bProfile.setIcon(new javax.swing.ImageIcon("C:\\Users\\prata\\OneDrive\\Dokumen\\project pbo\\2864cdf0-a3af-4be8-a675-09f6f6578a38.jpg")); // NOI18N
         bProfile.setText("Profile");
         bProfile.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         bProfile.setBorderPainted(false);
@@ -356,7 +351,6 @@ public class homepage extends javax.swing.JFrame {
         bReservasi.setBackground(new java.awt.Color(245, 239, 235));
         bReservasi.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         bReservasi.setForeground(new java.awt.Color(75, 111, 127));
-        bReservasi.setIcon(new javax.swing.ImageIcon("C:\\Users\\prata\\OneDrive\\Dokumen\\project pbo\\cbcf5044-dacd-49a4-8801-7682fad0b802.jpg")); // NOI18N
         bReservasi.setText("Reservasi");
         bReservasi.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         bReservasi.setBorderPainted(false);
