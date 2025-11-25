@@ -1,8 +1,8 @@
-    /*
-     * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-     * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
-     */
-   package project.pbo;
+/*
+         * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+         * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package project.pbo;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -41,7 +41,9 @@ public class UserManager {
             // Ambil ID User
             ResultSet rs = pstUser.getGeneratedKeys();
             int idUser = 0;
-            if (rs.next()) idUser = rs.getInt(1);
+            if (rs.next()) {
+                idUser = rs.getInt(1);
+            }
 
             System.out.println("User inserted. ID: " + idUser);
 
@@ -62,5 +64,36 @@ public class UserManager {
             return false;
         }
     }
+    // LOGIN USER
+
+    public static User loginUser(String email, String password) {
+        try {
+            Connection conn = DatabaseConnection.getConnection();
+
+            String sql = "SELECT * FROM user WHERE email = ? AND password = ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, email);
+            ps.setString(2, password);
+
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                return new User(
+                        rs.getInt("id_user"),
+                        rs.getString("nama"),
+                        rs.getString("email"),
+                        rs.getString("password"),
+                        rs.getString("no_telp"),
+                        rs.getString("role")
+                );
+            }
+
+            return null;
+
+        } catch (Exception e) {
+            System.out.println("Error login: " + e.getMessage());
+            return null;
+        }
+    }
+
 }
-    

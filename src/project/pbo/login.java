@@ -10,6 +10,7 @@ package project.pbo;
  */
 import javax.swing.ImageIcon;
 import java.awt.Image;
+import javax.swing.JOptionPane;
 
 public class login extends javax.swing.JFrame {
 
@@ -20,8 +21,32 @@ public class login extends javax.swing.JFrame {
      */
     public login() {
         initComponents();
+        bLogin.addActionListener(evt -> doLogin());
         // Resize setelah komponen tampil (biar width & height nya tidak 0)
       
+    }
+    
+    private void doLogin() {
+        String email = bUsername.getText();
+        String pass = String.valueOf(bPassword.getPassword());
+
+        if (email.isEmpty() || pass.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Email dan Password harus diisi!");
+            return;
+        }
+
+        User user = UserManager.loginUser(email, pass);
+
+        if (user != null) {
+            JOptionPane.showMessageDialog(this, "Login Berhasil!\nSelamat datang, " + user.getNama());
+
+            // TODO: diarahkan ke dashboard atau menu utama
+            // contoh:
+            new homepage().setVisible(true);
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "Email atau Password salah!");
+        }
     }
 
     /**
@@ -45,6 +70,8 @@ public class login extends javax.swing.JFrame {
         bLogin = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -72,7 +99,7 @@ public class login extends javax.swing.JFrame {
 
         username.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         username.setForeground(new java.awt.Color(47, 65, 86));
-        username.setText("Username");
+        username.setText("Email");
 
         bUsername.setBackground(new java.awt.Color(245, 239, 235));
         bUsername.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
@@ -141,30 +168,37 @@ public class login extends javax.swing.JFrame {
 
         jPanel2.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 640, 1114));
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 26)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(47, 65, 86));
         jLabel2.setText("Halo");
-        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 260, -1, -1));
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 270, -1, -1));
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 26)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(47, 65, 86));
         jLabel3.setText("Selamat Datang!");
-        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 290, -1, 43));
+        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 300, -1, 43));
+
+        jLabel4.setIcon(new javax.swing.ImageIcon("C:\\Users\\prata\\OneDrive\\Dokumen\\project pbo\\waving_person-removebg-preview (1) (2).png")); // NOI18N
+        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 320, -1, -1));
+
+        jLabel6.setIcon(new javax.swing.ImageIcon("C:\\Users\\prata\\OneDrive\\Dokumen\\project pbo\\mesin_cuci_-removebg-preview.png")); // NOI18N
+        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 540, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 12, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(30, 30, 30)
+                .addContainerGap()
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 1114, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(44, 44, 44))
         );
 
         pack();
@@ -203,6 +237,8 @@ public class login extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel login;
