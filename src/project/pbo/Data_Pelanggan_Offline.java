@@ -326,7 +326,7 @@ public class Data_Pelanggan_Offline extends javax.swing.JFrame {
     }//GEN-LAST:event_ButtonLaporanPemasukanActionPerformed
 
     private void ButtonLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonLogoutActionPerformed
-        new login().setVisible(true);
+        new Login().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_ButtonLogoutActionPerformed
 

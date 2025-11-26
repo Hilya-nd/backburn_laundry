@@ -351,7 +351,7 @@ public class WilayahGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_ButtonReservasiOfflineActionPerformed
 
     private void ButtonLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonLogoutActionPerformed
-        new login().setVisible(true);
+        new Login().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_ButtonLogoutActionPerformed
 
@@ -383,7 +383,7 @@ public class WilayahGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_ButtonHapusWilayahActionPerformed
 
     private void ButtonReservasiOnlineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonReservasiOnlineActionPerformed
-        new reservasi().setVisible(true);
+        new ReservasiOnlineGUI().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_ButtonReservasiOnlineActionPerformed
 

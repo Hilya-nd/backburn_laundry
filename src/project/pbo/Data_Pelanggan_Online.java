@@ -4,16 +4,25 @@
  */
 package project.pbo;
 
+import java.sql.*;
+import javax.swing.JOptionPane;
 /**
  *
  * @author destria
  */
 public class Data_Pelanggan_Online extends javax.swing.JFrame {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Data_Pelanggan_Online.class.getName());
 
     public Data_Pelanggan_Online() {
         initComponents();
+        loadDataReservasi();
+
+        jTable2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableClicked(evt);
+            }
+        });
     }
 
     /**
@@ -238,7 +247,7 @@ public class Data_Pelanggan_Online extends javax.swing.JFrame {
     }//GEN-LAST:event_ButtonReservasiOfflineActionPerformed
 
     private void ButtonReservasiOnlineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonReservasiOnlineActionPerformed
-        
+
     }//GEN-LAST:event_ButtonReservasiOnlineActionPerformed
 
     private void ButtonWilayahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonWilayahActionPerformed
@@ -252,7 +261,7 @@ public class Data_Pelanggan_Online extends javax.swing.JFrame {
     }//GEN-LAST:event_ButtonLaporanPemasukanActionPerformed
 
     private void ButtonLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonLogoutActionPerformed
-        new login().setVisible(true);
+        new Login().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_ButtonLogoutActionPerformed
 
@@ -260,6 +269,120 @@ public class Data_Pelanggan_Online extends javax.swing.JFrame {
         new Kategori().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_ButtonKategoriActionPerformed
+    private void loadDataReservasi() {
+        try {
+            Connection conn = DatabaseConnection.getConnection();
+            String sql = """
+            SELECT r.id_reservasi, p.nama, r.tanggal_reservasi,
+                   k.nama_kategori, r.berat, r.total_harga, r.status
+            FROM reservasi_online r
+            JOIN pelanggan pl ON r.id_pelanggan = pl.id_pelanggan
+            JOIN user p ON pl.id_user = p.id_user
+            JOIN kategori k ON r.id_kategori = k.id_kategori
+            ORDER BY r.id_reservasi DESC
+        """;
+
+            PreparedStatement pst = conn.prepareStatement(sql);
+            ResultSet rs = pst.executeQuery();
+
+            javax.swing.table.DefaultTableModel model
+                    = (javax.swing.table.DefaultTableModel) jTable2.getModel();
+            model.setRowCount(0); // bersihkan tabel
+
+            int no = 1;
+            while (rs.next()) {
+                model.addRow(new Object[]{
+                    no++,
+                    rs.getString("nama"),
+                    rs.getTimestamp("tanggal_reservasi"),
+                    rs.getString("nama_kategori"),
+                    rs.getDouble("berat"),
+                    rs.getDouble("total_harga"),
+                    rs.getString("status")
+                });
+            }
+
+            rs.close();
+            pst.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void tableClicked(java.awt.event.MouseEvent evt) {
+        int row = jTable2.getSelectedRow();
+        if (row == -1) {
+            return;
+        }
+
+        int idRes = getIdReservasiByRow(row);
+
+        String beratStr = javax.swing.JOptionPane.showInputDialog(
+                this, "Masukkan Berat (kg):", "Input Berat", javax.swing.JOptionPane.PLAIN_MESSAGE);
+
+        if (beratStr == null || beratStr.isEmpty()) {
+            return;
+        }
+
+        double berat = Double.parseDouble(beratStr);
+
+        String[] statusList = {"diproses", "dijemput", "selesai"};
+        String statusBaru = (String) javax.swing.JOptionPane.showInputDialog(
+                this, "Ubah Status:", "Status",
+                javax.swing.JOptionPane.PLAIN_MESSAGE, null, statusList, statusList[0]);
+
+        try {
+            boolean ok = ReservasiOnlineSistem.updateBeratDanHarga(idRes, berat);
+
+            if (ok) {
+                // UPDATE STATUS
+                Connection conn = DatabaseConnection.getConnection();
+                String sql = "UPDATE reservasi_online SET status=? WHERE id_reservasi=?";
+                PreparedStatement pst = conn.prepareStatement(sql);
+                pst.setString(1, statusBaru);
+                pst.setInt(2, idRes);
+                pst.executeUpdate();
+                pst.close();
+
+                javax.swing.JOptionPane.showMessageDialog(this, "Data berhasil diupdate!");
+
+                loadDataReservasi();
+            }
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private int getIdReservasiByRow(int row) {
+        try {
+            Connection conn = DatabaseConnection.getConnection();
+            String sql = """
+            SELECT id_reservasi 
+            FROM reservasi_online r
+            JOIN pelanggan pl ON r.id_pelanggan = pl.id_pelanggan
+            JOIN user p ON pl.id_user = p.id_user
+            ORDER BY id_reservasi DESC
+        """;
+
+            PreparedStatement pst = conn.prepareStatement(sql);
+            ResultSet rs = pst.executeQuery();
+
+            int index = 0;
+            while (rs.next()) {
+                if (index == row) {
+                    return rs.getInt("id_reservasi");
+                }
+                index++;
+            }
+            rs.close();
+            pst.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
 
     /**
      * @param args the command line arguments
