@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package project.pbo;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +13,7 @@ import java.util.List;
  * @author prata
  */
 public class KategoriSistem {
+
     private int id;
     private String nama;
     private double hargaPerKg;
@@ -22,9 +24,17 @@ public class KategoriSistem {
         this.hargaPerKg = harga;
     }
 
-    public int getId() { return id; }
-    public String getNama() { return nama; }
-    public double getHargaPerKg() { return hargaPerKg; }
+    public int getId() {
+        return id;
+    }
+
+    public String getNama() {
+        return nama;
+    }
+
+    public double getHargaPerKg() {
+        return hargaPerKg;
+    }
 
     // ===================== LOAD KATEGORI =====================
     public static List<KategoriSistem> loadKategori() throws SQLException {
@@ -56,4 +66,19 @@ public class KategoriSistem {
         pst.setDouble(2, harga);
         pst.executeUpdate();
     }
-}
+
+    public static int getIdByName(String nama) throws SQLException {
+        Connection conn = DatabaseConnection.getConnection();
+        String sql = "SELECT id_kategori FROM kategori WHERE nama_kategori = ?";
+        PreparedStatement pst = conn.prepareStatement(sql);
+        pst.setString(1, nama);
+
+        ResultSet rs = pst.executeQuery();
+        if (rs.next()) {
+            return rs.getInt(1);
+        }
+        return -1;
+    }
+
+}   
+    

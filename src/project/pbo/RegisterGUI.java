@@ -1,16 +1,13 @@
 package project.pbo;
-
 import javax.swing.JOptionPane;  // ← Tambahkan ini!
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import project.pbo.UserManager;
-import project.pbo.UserManager;
-import project.pbo.UserManager;
-import project.pbo.login;
-import project.pbo.login;
-import project.pbo.login;
+import project.pbo.Login;
+
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -20,14 +17,15 @@ import project.pbo.login;
  *
  * @author prata
  */
-public class Register extends javax.swing.JFrame {
+
+public class RegisterGUI extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Register.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(RegisterGUI.class.getName());
 
     /**
      * Creates new form Register
      */
-    public Register() {
+    public RegisterGUI() {
         initComponents();
     }
 
@@ -241,7 +239,7 @@ public class Register extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -286,51 +284,46 @@ public class Register extends javax.swing.JFrame {
     }//GEN-LAST:event_jPasswordField1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-String nama = jTextField1.getText();
-    String email = jTextField2.getText();
-    String mobile = jTextField3.getText();
-    String pass = jPasswordField1.getText();
+        String nama = jTextField1.getText();
+        String email = jTextField2.getText();
+        String telp = jTextField3.getText();
+        String pass = String.valueOf(jPasswordField1.getPassword());
 
-    if (nama.isEmpty() || email.isEmpty() || mobile.isEmpty() || pass.isEmpty()) {
-        JOptionPane.showMessageDialog(this, "Semua field harus diisi!");
-        return;
-    }
+        boolean success = RegisterSistem.registerPelanggan(nama, email, telp, pass);
 
-    boolean success = UserManager.registerUser(nama, email, mobile, pass);
+        if (success) {
+            JOptionPane.showMessageDialog(this, "Registrasi Berhasil!");
+            new Login().setVisible(true);
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "Registrasi gagal!");
 
-    if (success) {
-        JOptionPane.showMessageDialog(this, "Registrasi Berhasil!");
-
-        new login().setVisible(true);
-        this.dispose();
-    } else {
-        JOptionPane.showMessageDialog(this, "Email sudah terdaftar atau terjadi error!");
     }    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+    /* Set the Nimbus look and feel */
+    //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+    /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
+     */
+    try {
+        for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+            if ("Nimbus".equals(info.getName())) {
+                javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                break;
             }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
+    } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
+        logger.log(java.util.logging.Level.SEVERE, null, ex);
+    }
+    //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new Register().setVisible(true));
-    }   
+    /* Create and display the form */
+    java.awt.EventQueue.invokeLater(() -> new RegisterGUI().setVisible(true));
+}   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

@@ -3,13 +3,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package project.pbo;
+import java.sql.*;
 
 /**
  *
  * @author prata
  */
 public class Profile extends javax.swing.JFrame {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Profile.class.getName());
 
     /**
@@ -17,6 +18,7 @@ public class Profile extends javax.swing.JFrame {
      */
     public Profile() {
         initComponents();
+        loadProfileUser();
     }
 
     /**
@@ -30,7 +32,6 @@ public class Profile extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
@@ -48,7 +49,8 @@ public class Profile extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        ButtonLogout = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -60,11 +62,6 @@ public class Profile extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(47, 65, 86));
         jLabel1.setText("BackBurn Laundry");
 
-        jButton1.setBackground(new java.awt.Color(245, 239, 235));
-        jButton1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(75, 111, 127));
-        jButton1.setText("Logout");
-
         jPanel6.setBackground(new java.awt.Color(245, 239, 235));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -72,8 +69,6 @@ public class Profile extends javax.swing.JFrame {
         jLabel2.setText("Profile Custumer");
 
         jPanel2.setBackground(new java.awt.Color(200, 217, 230));
-
-        jLabel4.setIcon(new javax.swing.ImageIcon("C:\\Users\\prata\\OneDrive\\Dokumen\\project pbo\\account_circle_50dp_2F4156_FILL0_wght400_GRAD0_opsz48.png")); // NOI18N
 
         jTextField1.setBackground(new java.awt.Color(200, 217, 230));
         jTextField1.setForeground(new java.awt.Color(47, 68, 83));
@@ -89,8 +84,6 @@ public class Profile extends javax.swing.JFrame {
         jLabel7.setForeground(new java.awt.Color(47, 65, 86));
         jLabel7.setText("Nama");
 
-        jLabel3.setIcon(new javax.swing.ImageIcon("C:\\Users\\prata\\OneDrive\\Dokumen\\project pbo\\call_50dp_2F4156_FILL0_wght400_GRAD0_opsz48.png")); // NOI18N
-
         jTextField2.setBackground(new java.awt.Color(200, 217, 230));
         jTextField2.setForeground(new java.awt.Color(47, 65, 86));
         jTextField2.setText("Telepon");
@@ -105,8 +98,6 @@ public class Profile extends javax.swing.JFrame {
         jLabel8.setForeground(new java.awt.Color(47, 65, 86));
         jLabel8.setText("Telepon");
 
-        jLabel5.setIcon(new javax.swing.ImageIcon("C:\\Users\\prata\\OneDrive\\Dokumen\\project pbo\\mail_50dp_2F4156_FILL0_wght400_GRAD0_opsz48.png")); // NOI18N
-
         jTextField3.setBackground(new java.awt.Color(200, 217, 230));
         jTextField3.setForeground(new java.awt.Color(47, 65, 86));
         jTextField3.setText("Email");
@@ -120,8 +111,6 @@ public class Profile extends javax.swing.JFrame {
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(47, 65, 86));
         jLabel9.setText("Email");
-
-        jLabel6.setIcon(new javax.swing.ImageIcon("C:\\Users\\prata\\OneDrive\\Dokumen\\project pbo\\password_2_50dp_2F4156_FILL0_wght400_GRAD0_opsz48.png")); // NOI18N
 
         jPasswordField1.setBackground(new java.awt.Color(200, 217, 230));
         jPasswordField1.setForeground(new java.awt.Color(47, 65, 86));
@@ -202,7 +191,7 @@ public class Profile extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(32, 32, 32)
-                        .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
                         .addGap(89, 89, 89))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(42, 42, 42)
@@ -222,7 +211,7 @@ public class Profile extends javax.swing.JFrame {
                         .addGap(444, 444, 444)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGap(177, 177, 177)
+                        .addGap(180, 180, 180)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 1456, Short.MAX_VALUE))
         );
@@ -232,7 +221,7 @@ public class Profile extends javax.swing.JFrame {
                 .addContainerGap(72, Short.MAX_VALUE)
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 429, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(65, 65, 65))
         );
 
@@ -250,12 +239,19 @@ public class Profile extends javax.swing.JFrame {
         jButton3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jButton3.setBorderPainted(false);
 
-        jButton4.setBackground(new java.awt.Color(245, 239, 235));
-        jButton4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jButton4.setForeground(new java.awt.Color(75, 111, 127));
-        jButton4.setText("Reservasi");
-        jButton4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jButton4.setBorderPainted(false);
+        ButtonLogout.setBackground(new java.awt.Color(245, 239, 235));
+        ButtonLogout.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        ButtonLogout.setForeground(new java.awt.Color(75, 111, 127));
+        ButtonLogout.setText("Logout");
+        ButtonLogout.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        ButtonLogout.setBorderPainted(false);
+
+        jButton5.setBackground(new java.awt.Color(245, 239, 235));
+        jButton5.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jButton5.setForeground(new java.awt.Color(75, 111, 127));
+        jButton5.setText("Reservasi");
+        jButton5.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jButton5.setBorderPainted(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -268,12 +264,12 @@ public class Profile extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(138, 138, 138))
-                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(ButtonLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(241, 241, 241))
@@ -287,11 +283,11 @@ public class Profile extends javax.swing.JFrame {
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(15, 15, 15))
+                .addComponent(ButtonLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(0, 42, Short.MAX_VALUE)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -327,6 +323,31 @@ public class Profile extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jPasswordField1ActionPerformed
 
+    private void loadProfileUser() {
+        try {
+            Connection conn = DatabaseConnection.getConnection();
+            String sql = "SELECT nama, email, no_telp, password FROM user WHERE id_user = ?";
+
+            PreparedStatement pst = conn.prepareStatement(sql);
+            pst.setInt(1, Login.idUser);
+
+            ResultSet rs = pst.executeQuery();
+
+            if (rs.next()) {
+                jTextField1.setText(rs.getString("nama"));       // Nama
+                jTextField2.setText(rs.getString("no_telp"));    // Telepon
+                jTextField3.setText(rs.getString("email"));      // Email
+                jPasswordField1.setText(rs.getString("password")); // Password (asli)
+            }
+
+            rs.close();
+            pst.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -353,10 +374,10 @@ public class Profile extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton ButtonLogout;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;

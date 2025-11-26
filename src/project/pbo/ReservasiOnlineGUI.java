@@ -4,19 +4,33 @@
  */
 package project.pbo;
 
+import javax.swing.JOptionPane;
+import java.sql.SQLException;
+import java.util.List;
+
 /**
  *
  * @author destria
  */
-public class reservasi extends javax.swing.JFrame {
-    
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(reservasi.class.getName());
+public class ReservasiOnlineGUI extends javax.swing.JFrame {
+
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(ReservasiOnlineGUI.class.getName());
 
     /**
      * Creates new form reservasi
      */
-    public reservasi() {
+    private int currentUserId = -1;
+
+    public ReservasiOnlineGUI() {
         initComponents();
+        loadWilayahToCombo();
+        loadKategoriToCombo();
+
+    }
+
+    public ReservasiOnlineGUI(int loggedInUserId) {
+        this();
+        this.currentUserId = loggedInUserId;
     }
 
     /**
@@ -147,6 +161,11 @@ public class reservasi extends javax.swing.JFrame {
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Kirim");
         jButton1.setPreferredSize(new java.awt.Dimension(90, 30));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -160,9 +179,9 @@ public class reservasi extends javax.swing.JFrame {
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGap(351, 351, 351)
                         .addComponent(jLabel2)))
-                .addContainerGap(117, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(352, Short.MAX_VALUE)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                         .addComponent(jLabel1)
@@ -253,6 +272,83 @@ public class reservasi extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox10ActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        String alamat = jTextArea5.getText().trim();
+        java.util.Date tanggal = (java.util.Date) jSpinner5.getValue();
+        String namaWilayah = (String) jComboBox10.getSelectedItem();
+        String namaKategori = (String) jComboBox11.getSelectedItem();
+
+        if (alamat.isEmpty() || namaWilayah == null || namaKategori == null) {
+            JOptionPane.showMessageDialog(this, "Isi semua form dengan benar!");
+            return;
+        }
+
+        if (currentUserId == -1) {
+            JOptionPane.showMessageDialog(this, "User belum login. currentUserId belum di-set.");
+            return;
+        }
+        try {
+            boolean ok = ReservasiOnlineSistem.tambahReservasi(
+                    currentUserId,
+                    alamat,
+                    tanggal,
+                    namaWilayah,
+                    namaKategori
+            );
+
+            if (ok) {
+                JOptionPane.showMessageDialog(this, "Reservasi berhasil dikirim!");
+
+                // CLEAR FORM (opsional, boleh tetap)
+                jTextArea5.setText("");
+                jComboBox10.setSelectedIndex(0);
+                jComboBox11.setSelectedIndex(0);
+
+                // === ARAHKAN KE HOMEPAGE SETELAH OK ===
+                HomepageGUI home = new HomepageGUI();
+                home.setVisible(true);
+
+                // tutup halaman reservasi
+                this.dispose();
+
+            } else {
+                JOptionPane.showMessageDialog(this, "Gagal menyimpan reservasi.");
+            }
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "ERROR: " + ex.getMessage());
+            ex.printStackTrace();
+        }    }//GEN-LAST:event_jButton1ActionPerformed
+    private void loadWilayahToCombo() {
+        try {
+            jComboBox10.removeAllItems();
+            List<WilayahSistem> wilayah = WilayahSistem.loadData();
+
+            for (WilayahSistem w : wilayah) {
+                jComboBox10.addItem(w.getNamaWilayah());
+            }
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Gagal memuat wilayah: " + ex.getMessage());
+            ex.printStackTrace();
+        }
+    }
+
+    private void loadKategoriToCombo() {
+        try {
+            jComboBox11.removeAllItems();
+            List<KategoriSistem> kategori = KategoriSistem.loadKategori();
+
+            for (KategoriSistem k : kategori) {
+                jComboBox11.addItem(k.getNama());
+            }
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Gagal memuat kategori: " + ex.getMessage());
+            ex.printStackTrace();
+        }
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -275,9 +371,8 @@ public class reservasi extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new reservasi().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new ReservasiOnlineGUI().setVisible(true));
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
