@@ -241,7 +241,7 @@ public class Login extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> new Login().setVisible(true));
     }
-
+//
     // Variables declaration - do not modify                     
     private javax.swing.JButton bLogin;
     private javax.swing.JPasswordField bPassword;
